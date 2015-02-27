@@ -1,3 +1,3 @@
 This is a boilerplate Jekyll site from https://www.jekyllrb.com.
 
-So far, I'm at the quick-start guide. Let's see what happens.
+I'm working my way through Andrew Munsell's Jekyll tutorial at https://www.andrewmunsell.com/tutorials/jekyll-by-example
