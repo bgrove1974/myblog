@@ -1,6 +1,6 @@
 ---
-layout: default         #!# Jekyll will only process files that begin with the front matter block.
-title: Jekyll Blog      #!# The front matter block goes between the --- lines.
+layout: default     #!# Jekyll will only process files that begin with the front matter block.
+title: My Blog      #!# The front matter block goes between the --- lines.
 ---
 
 This is a prototype blog made in Jekyll. Nothing important, just stuff to play around with, build, break, and fix. I am following a tutorial by Andrew Munsell that can be found at https://www.andrewmunsell.com/tutorials/jekyll-by-example.
