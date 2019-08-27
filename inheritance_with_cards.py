@@ -58,9 +58,47 @@ class Card:
 
     def __lt__(self, other):
         """
-        Less-than method is used to compare suits.
+        Less-than method is used to compare suits, Clubs being the lowest.
         If suits are equal, rank is used.
         """
         t1 = self.suit, self.rank
         t2 = other.suit, other.rank
         return t1 < t2
+
+
+class Deck:
+    """
+    Generates a standard deck of 52 playing cards.
+    """
+
+    def __init__(self):
+        """
+        Use a nested loop to populate the deck.
+        """
+        self.cards = []
+        for suit in range(4):
+            # Don't start at index 0
+            for rank in range(1, 14):
+                card = Card(suit, rank)
+                self.cards.append(card)
+
+    def __str__(self):
+        """
+        String representation of our deck for the players and dealers to read.
+        Returns a single string on 52 lines.
+
+        >> deck = Deck()
+        >> print(deck)
+        Ace of Clubs
+        2 of Clubs
+        3 of Clubs
+        ...
+        ...
+        Jack of Spades
+        Queen of Spades
+        King of Spades
+        """
+        res = []
+        for card in self.cards:
+            res.append(str(card))
+        return '\n'.join(res)
