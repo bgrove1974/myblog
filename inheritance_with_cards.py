@@ -55,3 +55,12 @@ class Card:
         """
         return '%s of %s' % (Card.rank_names[self.rank],
                              Card.suit_names[self.suit])
+
+    def __lt__(self, other):
+        """
+        Less-than method is used to compare suits.
+        If suits are equal, rank is used.
+        """
+        t1 = self.suit, self.rank
+        t2 = other.suit, other.rank
+        return t1 < t2
