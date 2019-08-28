@@ -102,3 +102,27 @@ class Deck:
         for card in self.cards:
             res.append(str(card))
         return '\n'.join(res)
+
+    def pop_card(self):
+        """
+        Deals from the bottom of the deck.
+        """
+        return self.cards.pop()
+
+    def add_card(self, card):
+        """
+        Veneer method that adds a card.
+        """
+        self.cards.append(card)
+
+    def shuffle(self):
+        """
+        Pseudorandomly shuffle the cards.
+        """
+        random.shuffle(self.cards)
+
+    def sort(self):
+        """
+        Sorts the cards lowest to highest.
+        """
+        self.cards.sort()
