@@ -9,6 +9,7 @@ Copyright 2015 Allen Downey
 License: http://creativecommons.org/licenses/by/4.0/
 """
 
+
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 import random
@@ -126,3 +127,37 @@ class Deck:
         Sorts the cards lowest to highest.
         """
         self.cards.sort()
+
+    def move_cards(self, hand, num):
+        """
+        The pop_card and add_card methods are encapsulated in this method.
+        move_cards has two arguments: Hand object and number of cards to deal.
+        It modifies both self and hand, and returns None.
+        In some games, cards are moved from one hand to another, or from a hand back to the deck.
+        You can use move_cards for any of these operations.
+        self can be either a Deck or a Hand, and hand, despite the name, can also be a Deck.
+        """
+        for i in range(num):
+            hand.add_card(self.pop_card())
+
+
+class Hand(Deck):
+    """
+    Represents a hand of playing cards.
+    Inherits methods like pop_card and add_card from the Deck class.
+    """
+
+    def __init__(self, label=''):
+        """
+        Initialize the cards variable to an empty list.
+
+        % python3 -i inheritance_with_cards.py
+        >> hand = Hand('some hand')
+        >> hand.cards
+        []
+        >> hand.label
+        'some hand'
+        >>
+        """
+        self.cards = []
+        self.label = label
