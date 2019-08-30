@@ -161,3 +161,30 @@ class Hand(Deck):
         """
         self.cards = []
         self.label = label
+
+
+#################################
+# Any time you are unsure about the flow of execution through your program,
+# the simplest solution is to add print statements at the beginning of the
+# relevant methods.
+# If Deck.shuffle prints a message that says something like Running
+# Deck.shuffle, then as the program runs it traces the flow of execution.
+# As an alternative, you could use this function, which takes an object and
+# a method name (as a string) and returns the class that provides the
+# definition of the method:
+def find_defining_class(obj, meth_name):
+    """
+    obj -> str
+    meth_name -> str
+    % python3 -i inheritance_with_cards.py
+    >> hand = Hand()
+    >> find_defining_class(hand, 'shuffle')
+    <class '__main__.Deck'>
+    >>
+    The shuffle method for this Hand is the one in Deck
+    """
+    for ty in type(obj).mro():
+        # https://stackoverflow.com/questions/2010692/what-does-mro-do
+        # https://docs.python.org/3/library/stdtypes.html#class.__mro__
+        if meth_name in ty.__dict__:
+            return ty
