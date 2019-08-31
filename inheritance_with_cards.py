@@ -57,6 +57,13 @@ class Card:
         return '%s of %s' % (Card.rank_names[self.rank],
                              Card.suit_names[self.suit])
 
+    def __eq__(self, other):
+        """
+        Checks whether self and other have the same rank and suit.
+        Returns a boolean.
+        """
+        return self.suit == other.suit and self.rank == other.rank
+
     def __lt__(self, other):
         """
         Less-than method is used to compare suits, Clubs being the lowest.
@@ -70,11 +77,12 @@ class Card:
 class Deck:
     """
     Generates a standard deck of 52 playing cards.
+    Attributes are a list of Card objects named cards.
     """
 
     def __init__(self):
         """
-        Use a nested loop to populate the deck.
+        Use a nested loop to populate the deck with 52 cards.
         """
         self.cards = []
         for suit in range(4):
@@ -104,17 +112,23 @@ class Deck:
             res.append(str(card))
         return '\n'.join(res)
 
-    def pop_card(self):
+    def pop_card(self, i=-1):
         """
         Deals from the bottom of the deck.
         """
-        return self.cards.pop()
+        return self.cards.pop(i)
 
     def add_card(self, card):
         """
         Veneer method that adds a card.
         """
         self.cards.append(card)
+
+    def remove_card(self, card):
+        """
+        Removes a card from the deck or raises an exception if it's not there.
+        """
+        self.cards.remove(card)
 
     def shuffle(self):
         """
@@ -172,7 +186,7 @@ class Hand(Deck):
 # As an alternative, you could use this function, which takes an object and
 # a method name (as a string) and returns the class that provides the
 # definition of the method:
-def find_defining_class(obj, meth_name):
+def find_defining_class(obj, method_name):
     """
     obj -> str
     meth_name -> str
@@ -186,5 +200,19 @@ def find_defining_class(obj, meth_name):
     for ty in type(obj).mro():
         # https://stackoverflow.com/questions/2010692/what-does-mro-do
         # https://docs.python.org/3/library/stdtypes.html#class.__mro__
-        if meth_name in ty.__dict__:
+        if method_name in ty.__dict__:
             return ty
+    return None
+
+
+if __name__ == '__main__':
+    # Deals a five-card hand that is printed to the terminal.
+    deck = Deck()
+    deck.shuffle()
+
+    hand = Hand()
+    print(find_defining_class(hand, 'shuffle'))
+
+    deck.move_cards(hand, 5)
+    hand.sort()
+    print(hand)
