@@ -14,6 +14,26 @@ from __future__ import (absolute_import, division,
 from Card import Hand, Deck
 
 
+class Hist(dict):
+    """
+    A map from each item (x) to its frequency.
+    """
+    def __init__(self, seq = []):
+        """
+        Creates a new histogram starting with the items in seq.
+        """
+        for x in seq:
+            self.count(x)
+
+    def count(self, x, f=1):
+        """
+        Increments or decrements the counter associated with item (x).
+        """
+        self[x] = self.get(x, 0) + f
+        if self[x] == 0:
+            del self[x]
+
+
 class PokerHand(Hand):
     """
     Represents a poker hand.
