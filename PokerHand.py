@@ -38,26 +38,51 @@ class PokerHand(Hand):
     """
     Represents a poker hand.
     """
+    all_labels = ['straightflush', 'fourkind', 'fullhouse', 'flush',
+                  'straight', 'threekind', 'twopair', 'pair', 'highcard']
 
-    def suit_hist(self):
+    def make_histograms(self):
         """
-        Builds a histogram of the suits that appear in the hand.
-        The results are stored in attribute suits.
+        Computes histograms for suits and hands.
+        Creates the following attributes:
+            suits: a histogram of the suits in the hand.
+            ranks: a histogram of the ranks.
+            sets:  a sorted list of the rank sets in the hand.
         """
-        self.suits = {}
-        for card in self.cards:
-            self.suits[card.suit] = self.suits.get(card.suit, 0) + 1
+        self.suits = Hist()
+        self.ranks = Hist()
 
-    def has_flush(self):
+        for c in self.cards:
+            self.suits.count(c.suit)
+            self.ranks.count(c.rank)
+
+        self.sets = list(self.ranks.values())
+        self.sets.sort(reverse=True)
+
+    def has_highcard(self):
         """
-        Returns True if the hand has a flush, False otherwise.
-        This method works for hands with 5 cards or more.
+        Returns True if this hand has a high card.
         """
-        self.suit_hist()
-        for val in self.suits.values():
-            if val >= 5:
-                return True
-        return False
+        return len(self.cards)
+
+    def check_sets(self, *t):
+        """
+        Checks whether self.sets contains sets that are at least as big as the
+        requirements in t.
+        t: list of int
+        """
+        for need, have in zip(t, self.sets):
+            if need > have:
+                return False
+        return True
+
+    def has_pair(self):
+        """
+        Checks whether this hand has a pair.
+        """
+        return self.check_sets(2)
+
+    
 
 
 if __name__ == '__main__':
@@ -65,10 +90,11 @@ if __name__ == '__main__':
     deck = Deck()
     deck.shuffle()
 
-    # Deal seven hands of cards and classify them:
-    for i in range(7):
+    # Deal hands of cards (from a single deck) and classify them:
+    for i in range(10):
+        # Keep the total number of cards dealt less than 52
         hand = PokerHand()
-        deck.move_cards(hand, 7)
+        deck.move_cards(hand, 5)
         hand.sort()
         print(hand)
         print(hand.has_flush())
