@@ -82,7 +82,64 @@ class PokerHand(Hand):
         """
         return self.check_sets(2)
 
-    
+    def has_twopair(self):
+        """
+        Checks whether this hand has two pair.
+        """
+        return self.check_sets(2, 2)
+
+    def has_threekind(self):
+        """
+        Checks whether this hand has three of a kind.
+        """
+        return self.check_sets(3)
+
+    def has_fourkind(self):
+        """
+        Checks whether this hand has four of a kind.
+        """
+        return self.check_sets(4)
+
+    def has_fullhouse(self):
+        """
+        Checks whether this hand has a full house.
+        """
+        return self.check_sets(3, 2)
+
+    def has_flush(self):
+        """
+        Checks whether this hand has a flush.
+        """
+        for val in self.suits.values():
+            if val >= 5:
+                return True
+        return False
+
+    def has_straight(self):
+        """
+        Checks whether this hand has a straight.
+        """
+        # Make a copy of the rank histogram:
+        ranks = self.ranks.copy()
+        ranks[14] = ranks.get(1, 0)
+        # See if we have five in a row:
+        return self.in_a_row(ranks, 5)
+
+    def in_a_row(self, ranks, n=5):
+        """
+        Checks whether the histogram has n ranks in a row.
+        hist: map from rank to frequency
+        n: number we need to get to
+        """
+        count = 0
+        for i in range(1, 15):
+            if ranks.get(i, 0):
+                count += 1
+                if count == n:
+                    return True
+            else:
+                count = 0
+        return False
 
 
 if __name__ == '__main__':
