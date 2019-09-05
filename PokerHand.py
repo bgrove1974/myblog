@@ -141,6 +141,34 @@ class PokerHand(Hand):
                 count = 0
         return False
 
+    def has_straightflush(self):
+        """
+        Checks whether this hand has a straight flush.
+        This algorithm partitions the hand by suit and checks each sub-hand for
+        a flush, and then each partitioned hand is checked for a straight.
+        """
+        d = {}
+        for c in self.cards:
+            d.setdefault(c.suit, PokerHand()).add_card(c)
+        for hand in d.values():
+            if len(hand.cards) < 5:
+                continue
+            hand.make_histograms()
+            if hand.has_straight():
+                return True
+        return False
+
+    def classify(self):
+        """
+        Classifies the hand and creates the labels attribute.
+        """
+        self.make_histograms()
+        self.labels = []
+        for label in PokerHand.all_labels:
+            f = getattr(self, 'has_' + label)
+            if f():
+                self.labels.append(label)
+
 
 if __name__ == '__main__':
     # Deal a deck:
