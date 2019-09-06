@@ -170,6 +170,27 @@ class PokerHand(Hand):
                 self.labels.append(label)
 
 
+class PokerDeck(Deck):
+    """
+    Represents a deck of cards that can deal poker hands.
+    """
+
+    def deal_hands(self, num_cards=5, num_hands=10):
+        """
+        Deals poker hands from the deck by returning Hands.
+        num_cards: cards per hand
+        num_hands: number of hands
+        returns: list of Hands
+        """
+        hands = []
+        for i in range(num_hands):
+            hand = PokerHand()
+            self.move_cards(hand, num_cards)
+            hand.classify()
+            hands.append(hand)
+        return hands
+
+
 if __name__ == '__main__':
     # Deal a deck:
     deck = Deck()
