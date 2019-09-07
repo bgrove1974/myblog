@@ -191,17 +191,32 @@ class PokerDeck(Deck):
         return hands
 
 
-if __name__ == '__main__':
-    # Deal a deck:
-    deck = Deck()
-    deck.shuffle()
+def main():
+    # Histogram that maps a label to the number of occurrences:
+    lhist = Hist()
+    # Loop n times, dealing 7 hands of 7 cards:
+    n = 20000
+    for i in range(n):
+        if i % 1000 == 0:
+            print(i)
 
-    # Deal hands of cards (from a single deck) and classify them:
-    for i in range(10):
-        # Keep the total number of cards dealt less than 52
-        hand = PokerHand()
-        deck.move_cards(hand, 5)
-        hand.sort()
-        print(hand)
-        print(hand.has_flush())
-        print('')
+        deck = PokerDeck()
+        deck.shuffle()
+
+        hands = deck.deal_hands(7, 7)
+        for hand in hands:
+            for label in hand.labels:
+                lhist.count(label)
+    # Print the results:
+    total = 7.0 * n
+    print(total, 'hands dealt:')
+    for label in PokerHand.all_labels:
+        freq = lhist.get(label, 0)
+        if freq == 0:
+            continue
+        p = total / freq
+        print('A %s happens once every %.2f hands.' % (label, p))
+
+
+if __name__ == '__main__':
+    main()
