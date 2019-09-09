@@ -68,3 +68,32 @@ class Deck:
 
 # Create a hand:
 class Hand:
+    """
+    Initialize the hand object as an empty list with value set to 0.
+    An attribute is also added to keep track of the aces.
+    """
+    def __init__(self):
+        self.cards = []
+        self.value = 0
+        self.aces = 0
+
+    def add_card(self, card):
+        """
+        Deals a card.
+        """
+        self.cards.append(card)
+        self.value += values[card.rank]
+        if card.rank == 'Ace':
+            self.aces +=1
+
+    def adjust_for_ace(self):
+        """
+        When you want the Ace to be 1 instead of 11.
+        """
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+
+# Create a Chips class for betting on the cards.
+class Chips:
