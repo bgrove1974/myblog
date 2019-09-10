@@ -97,3 +97,67 @@ class Hand:
 
 # Create a Chips class for betting on the cards.
 class Chips:
+    """
+    Gaming chips for the player are initialized to 100.
+    Also has methods for winning and losing bets.
+    """
+    def __init__(self):
+        self.total = 100
+        self.bet = 0
+
+    def win_bet(self):
+        self.total += self.bet
+
+    def lose_bet(self):
+        self.total -= self.bet
+
+
+# Take bets:
+def take_bet(chips):
+    """
+    This function contains the betting rules:
+    bets have to be a whole number, and you can't bet chips you don't have.
+    """
+    while True:
+        try:
+            chips.bet = int(input("How many chips do you want to bet?"))
+        except ValueError:
+            print("Sorry, your bet must be an integer.")
+        else:
+            if chips.bet > chips.total:
+                print("Sorry, your bet cannot be more than {}."
+                      .format(chips.total))
+            else:
+                break
+
+# Add another card, aka hit:
+def hit(deck, hand):
+    hand.add_card(deck.deal())
+    hand.adjust_for_ace()
+
+# Player's choice of hit or stand:
+def hit_or_stand(deck, hand):
+    """
+    The player can hit or stand if it's their turn.
+    When the variable playing is set to False, the dealer takes a turn.
+    Anything the user enters other than 'h' or 's' prints a message.
+    """
+    global playing
+
+    while True:
+        x = input("Would you like to ('h')it or ('s')tand? ")
+
+        if x[0].lower() == 'h':
+            # Call the hit function defined above
+            hit(deck, hand)
+
+        elif x[0].lower() == 's':
+            print("Player stands, Dealer's turn. ")
+            playing = False
+
+        else:
+            print("Sorry, please enter the 'h' or 's' key.")
+            continue
+        break
+
+# Functions to display the cards:
