@@ -161,3 +161,36 @@ def hit_or_stand(deck, hand):
         break
 
 # Functions to display the cards:
+def show_some(player, dealer):
+    print("\nDealer's Hand")
+    print("<card hidden>")
+    print(" ", dealer.cards[1])
+    print("\nPlayer's Hand: ", *player.cards, sep="\n")
+
+def show_all(player, dealer):
+    print("\nDealer's Hand: ", *dealer.cards, sep="\n"
+    print("Dealer's Hand = ", dealer.value)
+    print("\nPlayer's Hand: ", *player.cards, sep="\n")
+    print("Player's Hand = ", player.value)
+
+# Functions to handle game scenarios:
+def player_busts(player, dealer, chips):
+    print("Player Busts!")
+    chips.lose_bet()
+
+def player_wins(player, dealer, chips):
+    print("Player Wins!")
+    chips.win_bet()
+
+def dealer_busts(player, dealer, chips):
+    print("Dealer Busts!")
+    chips.win_bet()
+
+def dealer_wins(player, dealer, chips):
+    print("Dealer Wins!")
+    chips.lose_bet()
+
+def push(player, dealer):
+    print("Dealer ties player for a push.")
+
+# Now for the game itself:
