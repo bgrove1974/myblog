@@ -194,3 +194,46 @@ def push(player, dealer):
     print("Dealer ties player for a push.")
 
 # Now for the game itself:
+# GAMEPLAY #
+while True:
+    # Opening statement to greet the player:
+    print("Welcome to BlackJack, let's play some cards!")
+
+    # Create and shuffle the deck, then deal the cards:
+    player_hand = Hand()
+    player_hand.add_card(deck.deal())
+    player_hand.add_card(deck.deal())
+
+    dealer_hand = Hand()
+    dealer_hand.add_card(deck.deal())
+    dealer_hand.add_card(deck.deal())
+
+    # Initialize the player's bank of chips:
+    player_chips = Chips()
+
+    # Prompt the player for their bet:
+    take_bet(player_chips)
+
+    # Show the player their cards and the dealer's up card:
+    show_some(player_hand, dealer_hand)
+
+    # Use playing variable from hit_or_stand function:
+    while playing:
+        # Prompt for player to hit or stand:
+        hit_or_stand(deck, player_hand)
+        # Reveal cards, except for the dealer's down card:
+        show_some(player_hand, dealer hand)
+        # If player goes over 21, call player_busts() and break the while loop:
+        if player_hand.value > 21:
+            player_busts(player_hand, dealer_hand, player_chips)
+            break
+
+    # If player doesn't bust, play until Dealer's hand reaches 17:
+    if player_hand.value <= 21:
+        while dealer_hand.value < 17:
+            hit(deck, dealer_hand)
+        # Reveal all cards:
+        show_all(player_hand, dealer_hand)
+
+        # Run different winning scenarios:
+        
