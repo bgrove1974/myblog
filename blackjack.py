@@ -120,7 +120,7 @@ def take_bet(chips):
     """
     while True:
         try:
-            chips.bet = int(input("How many chips do you want to bet?"))
+            chips.bet = int(input("How many chips do you want to bet? "))
         except ValueError:
             print("Sorry, your bet must be an integer.")
         else:
@@ -152,7 +152,7 @@ def hit_or_stand(deck, hand):
             hit(deck, hand)
 
         elif x[0].lower() == 's':
-            print("Player stands, Dealer's turn. ")
+            print("Player stands, Dealer's turn.")
             playing = False
 
         else:
@@ -168,7 +168,7 @@ def show_some(player, dealer):
     print("\nPlayer's Hand: ", *player.cards, sep="\n")
 
 def show_all(player, dealer):
-    print("\nDealer's Hand: ", *dealer.cards, sep="\n"
+    print("\nDealer's Hand: ", *dealer.cards, sep="\n")
     print("Dealer's Hand = ", dealer.value)
     print("\nPlayer's Hand: ", *player.cards, sep="\n")
     print("Player's Hand = ", player.value)
@@ -197,10 +197,13 @@ def push(player, dealer):
 # GAMEPLAY #
 while True:
     # Opening statement to greet the player:
+    print()
     print("Welcome to BlackJack, let's play some cards!")
+    print("Please bet between 1 and 100 chips.")
 
     # Create and shuffle the deck, then deal the cards:
     player_hand = Hand()
+    deck = Deck()
     player_hand.add_card(deck.deal())
     player_hand.add_card(deck.deal())
 
@@ -222,18 +225,43 @@ while True:
         # Prompt for player to hit or stand:
         hit_or_stand(deck, player_hand)
         # Reveal cards, except for the dealer's down card:
-        show_some(player_hand, dealer hand)
+        show_some(player_hand, dealer_hand)
+        # If player hits 21:
+        if player_hand.value == 21:
+            player_wins(player_hand, dealer_hand, player_chips)
         # If player goes over 21, call player_busts() and break the while loop:
         if player_hand.value > 21:
             player_busts(player_hand, dealer_hand, player_chips)
             break
 
-    # If player doesn't bust, play until Dealer's hand reaches 17:
-    if player_hand.value <= 21:
-        while dealer_hand.value < 17:
-            hit(deck, dealer_hand)
-        # Reveal all cards:
-        show_all(player_hand, dealer_hand)
+        # If player doesn't bust, play until Dealer's hand reaches 17:
+        if player_hand.value <= 21:
+            while dealer_hand.value < 17:
+                hit(deck, dealer_hand)
+            # Reveal all cards:
+            show_all(player_hand, dealer_hand)
 
         # Run different winning scenarios:
-        
+        if dealer_hand.value > 21:
+            dealer_busts(player_hand, dealer_hand, player_chips)
+
+        elif dealer_hand.value > player_hand.value:
+            dealer_wins(player_hand, dealer_hand, player_chips)
+
+        elif dealer_hand.value < player_hand.value:
+            player_wins(player_hand, dealer_hand, player_chips)
+
+        else:
+            push(player_hand, dealer_hand)
+
+    # Give the chip count:
+    print("\nPlayer's winnings are at ", player_chips.total)
+
+    # Ask for another game, and the player can continue or break:
+    new_game = input("Another game of BlackJack? (Enter 'y' or 'n')")
+    if new_game[0].lower() == 'y':
+        playing = True
+        continue
+    else:
+        print("Thanks for playing!")
+        break
