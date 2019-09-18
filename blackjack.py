@@ -3,8 +3,8 @@
 
 from random import random
 
-# Make a list of the card colors:
-card_colors = ["diamonds", "hearts", "spades", "clubs"]
+# Make a list of the card suits:
+card_suits = ["diamonds", "hearts", "spades", "clubs"]
 
 # Make a Python dictionary to assign card values { str: int }:
 card_value = {
@@ -63,8 +63,37 @@ def play_turn(deck):
         if calculate_score(table_cards) >= 21:
             break
         # Ask the user if they want another card:
-        user_input = raw_input("Do you want another card? (enter 'y') ")
+        user_input = input("Do you want another card? (enter 'y') ")
     # Print player's score:
-    print "Your score is %d" % calculate_score(table_cards)
+    print("Your score is %d" % calculate_score(table_cards))
     # Return the total score for the round:
-    return calcualte_score(table_cards)
+    return calculate_score(table_cards)
+
+
+# Create a main() function to call when the program starts:
+def main():
+    # Initailize an empty deck object:
+    deck = []
+    # Populate the deck by suit and then by card:
+    for suit in card_suits:
+        for card in card_value:
+            # Create a (card,suit) tuple by appending the cards for each hand:
+            deck.append((card, suit))
+    # Create the players:
+    players = ['player 1', 'player 2']
+    # Initialize score and winner variables:
+    max_score = 0
+    winner = None
+    # Each player takes a turn:
+    for player in players:
+        print("\n%s, it's your turn.\n" % player)
+        score = play_turn(deck)
+        # Whoever has the highest score without busting wins:
+        if 21 >= score > max_score:
+            max_score = score
+            winner = player
+
+    print("The winner is %s!" % winner)
+
+if __name__ == "__main__":
+    main()
