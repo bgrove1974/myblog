@@ -27,11 +27,11 @@ class TestCard(unitttest.TestCase):
         self.assertTrue(self.aceClubs == self.aceDiamonds)
 
     def testImage(self):
-            self.assertEqual("🃑", self.aceClubs.image)
-            self.assertEqual("🃒", self.twoClubs.image)
-            self.assertEqual("🃚", self.tenClubs.image)
-            self.assertEqual("🃞", self.kingClubs.image)
-            self.assertEqual("🃁", self.aceDiamonds.image)
+        self.assertEqual("🃑", self.aceClubs.image)
+        self.assertEqual("🃒", self.twoClubs.image)
+        self.assertEqual("🃚", self.tenClubs.image)
+        self.assertEqual("🃞", self.kingClubs.image)
+        self.assertEqual("🃁", self.aceDiamonds.image)
 
 
 if __name__ == '__main__':
