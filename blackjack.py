@@ -64,3 +64,31 @@ class Hand:
             for card in self.cards:
                 print(card)
             print("Score:: ", self.get_value())
+
+
+class Game:
+
+    def __init__(self):
+        pass
+
+    def play(self):
+        playing = True
+        while playing:
+            self.deck = Deck()
+            self.deck.shuffle()
+            self.player_hand = Hand()
+            self.dealer_hand = Hand(dealer=True)
+
+            for i in range(2):
+                self.player_hand.add_card(self.deck.deal())
+                self.dealer_hand.add_card(self.deck.deal())
+
+            print("Your hand is: ")
+            self.player_hand.display()
+            print()
+            print("Dealer's hand is: ")
+            self.dealer_hand.display()
+
+            game_over = False
+
+            while not game_over:
