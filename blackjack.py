@@ -92,12 +92,11 @@ class Game:
             game_over = False
 
             while not game_over:
-                player_has_blackjack, dealer_has_blackjack =
-                                    self.check_for_blackjack()
+                player_has_blackjack, dealer_has_blackjack = self.check_for_blackjack()
                 if player_has_blackjack or dealer_has_blackjack:
                     game_over = True
                     self.show_blackjack_results(player_has_blackjack,
-                                                dealer_has_blackjack
+                                                dealer_has_blackjack)
                     continue
 
                 choice = input("Please choose (h)it or (s)tand ").lower()
@@ -119,9 +118,47 @@ class Game:
                     print()
                     if player_hand_value > dealer_hand_value:
                         print("You Win!")
-                    elif player_hand_value == delaer_hand_value:
+                    elif player_hand_value == dealer_hand_value:
                         print("Push (Tie)!")
                     else:
                         print("Dealer Wins!")
                     game_over = True
-                    
+
+            again = input("Play Again? (y or n) ")
+            while again.lower() not in ["y", "n"]:
+                again = input("Please enter y or n ").lower()
+            if again.lower() == "n":
+                print()
+                print("Thank you for playing")
+                print()
+                playing = False
+            else:
+                game_over = False
+
+
+    def player_is_over(self):
+        return self.player_hand.get_value() > 21
+
+    def check_for_blackjack(self):
+        player = False
+        dealer = False
+        if self.player_hand.get_value() == 21:
+            player = True
+        if self.dealer_hand.get_value() == 21:
+            dealer = True
+        return player, dealer
+
+    def show_blackjack_results(self, player_has_blackjack,
+                                     dealer_has_blackjack):
+        if player_has_blackjack and dealer_has_blackjack:
+            print()
+            print("Push! It's a tie, draw again")
+        elif player_has_blackjack:
+            print("Blackjack! You win!")
+        elif dealer_has_blackjack:
+            print("Dealer has Blackjack and wins")
+
+
+if __name__ == '__main__':
+    g = Game()
+    g.play()
