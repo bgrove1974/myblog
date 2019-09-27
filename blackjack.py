@@ -92,3 +92,36 @@ class Game:
             game_over = False
 
             while not game_over:
+                player_has_blackjack, dealer_has_blackjack =
+                                    self.check_for_blackjack()
+                if player_has_blackjack or dealer_has_blackjack:
+                    game_over = True
+                    self.show_blackjack_results(player_has_blackjack,
+                                                dealer_has_blackjack
+                    continue
+
+                choice = input("Please choose (h)it or (s)tand ").lower()
+                while choice not in ["h", "s"]:
+                    choice = input("Please enter h or s ").lower()
+                if choice == 'h':
+                    self.player_hand.add_card(self.deck.deal())
+                    self.player_hand.display()
+                    if self.player_is_over():
+                        print("Sorry, you lost")
+                        game_over = True
+                else:
+                    player_hand_value = self.player_hand.get_value()
+                    dealer_hand_value = self.dealer_hand.get_value()
+                    print()
+                    print("The Final Results")
+                    print("Your hand: ", player_hand_value)
+                    print("Dealer's hand: ", dealer_hand_value)
+                    print()
+                    if player_hand_value > dealer_hand_value:
+                        print("You Win!")
+                    elif player_hand_value == delaer_hand_value:
+                        print("Push (Tie)!")
+                    else:
+                        print("Dealer Wins!")
+                    game_over = True
+                    
