@@ -30,7 +30,6 @@ def roll_dice():
     print("Die 2: ", b)
     print()
     return a + b
-roll = roll_dice()
 
 def play_one_round(bet):
     """
@@ -52,6 +51,17 @@ def play_one_round(bet):
         print ("The point is now", point, ".")
 
     # Second phase:
-    
+    roll = roll_dice()
+    print("You rolled ", roll)
+    while roll != 7 and roll != point:
+        roll = roll_dice()
+        print("You rolled ", roll)
+    # After the loop, roll is either seven or the point:
+    if roll == 7:
+        print("Sorry, you lose.")
+        return -bet
+    else:
+        print("You win!")
+        return bet
 
 play_one_round(1000)
