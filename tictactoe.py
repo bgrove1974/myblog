@@ -46,4 +46,28 @@ def isWinner(board, letter):
     Given a board and a player's letter as input.
     Returns True if that player has won.
     """
-    return (())
+            # Across the top:
+    return ((board[7] == letter and board[8] == letter and board[9] == letter))
+            # Across the middle:
+        or (board[4] == letter and board[5] == letter and board[6] == letter)
+            # Across the bottom:
+        or (board[1] == letter and board[2] == letter and board[3] == letter)
+            # Down the left side:
+        or (board[7] == letter and board[4] == letter and board[1] == letter)
+            # Down the middle
+        or (board[8] == letter and board[5] == letter and board[2] == letter)
+            # Down the right side:
+        or (board[9] == letter and board[6] == letter and board[3] == letter)
+            # Diagonal
+        or (board[7] == letter and board[5] == letter and board[3] == letter)
+            # Diagonal
+        or (board[9] == letter and board[5] == letter and board[1] == letter)
+
+def getBoardCopy(board):
+    """
+    Make a copy of the board list and return it.
+    """
+    boardCopy = []
+    for i in board:
+        boardCopy.append(i)
+    return boardCopy
