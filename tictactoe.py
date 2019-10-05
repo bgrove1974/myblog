@@ -46,22 +46,7 @@ def isWinner(board, letter):
     Given a board and a player's letter as input.
     Returns True if that player has won.
     """
-            # Across the top:
-    return ((board[7] == letter and board[8] == letter and board[9] == letter))
-            # Across the middle:
-        or (board[4] == letter and board[5] == letter and board[6] == letter)
-            # Across the bottom:
-        or (board[1] == letter and board[2] == letter and board[3] == letter)
-            # Down the left side:
-        or (board[7] == letter and board[4] == letter and board[1] == letter)
-            # Down the middle
-        or (board[8] == letter and board[5] == letter and board[2] == letter)
-            # Down the right side:
-        or (board[9] == letter and board[6] == letter and board[3] == letter)
-            # Diagonal
-        or (board[7] == letter and board[5] == letter and board[3] == letter)
-            # Diagonal
-        or (board[9] == letter and board[5] == letter and board[1] == letter)
+    return ((board[7] == letter and board[8] == letter and board[9] == letter)) or (board[4] == letter and board[5] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter and board[3] == letter) or (board[7] == letter and board[4] == letter and board[1] == letter) or (board[8] == letter and board[5] == letter and board[2] == letter) or (board[9] == letter and board[6] == letter and board[3] == letter) or (board[7] == letter and board[5] == letter and board[3] == letter) or (board[9] == letter and board[5] == letter and board[1] == letter)
 
 def getBoardCopy(board):
     """
@@ -71,3 +56,19 @@ def getBoardCopy(board):
     for i in board:
         boardCopy.append(i)
     return boardCopy
+
+def isSpaceFree(board, move):
+    """
+    Make sure that the board space hasn't been taken already.
+    """
+    return board[move] == ' '
+
+def getPlayerMove(board):
+    """
+    Allows the player to play their turn.
+    """
+    move = ' '
+    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+        print('What is you next move? (1-9)')
+        move = input()
+    return int(move)
