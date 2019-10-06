@@ -72,3 +72,28 @@ def getPlayerMove(board):
         print('What is you next move? (1-9)')
         move = input()
     return int(move)
+
+def chooseRandomMoveFromList(board, movesList):
+    """
+    Returns a valid move from the passed list on the passed board.
+    If the move is invalid, returns None.
+    """
+    possibleMoves = []
+    for i in movesList:
+        if is SpaceFree(board, i):
+            possibleMoves.append(i)
+    if len(possibleMoves) != 0:
+        return random.choice(possibleMoves)
+    else:
+        return None
+
+def getComputerMove(board, computerLetter):
+    """
+    Given a board and the computer's letter, determine the machine's next move.
+    """
+    if computerLetter == 'X':
+        playerLetter = 'O'
+    else:
+        playerLetter == 'X'
+
+        
