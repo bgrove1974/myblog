@@ -96,4 +96,44 @@ def getComputerMove(board, computerLetter):
     else:
         playerLetter == 'X'
 
-        
+    # Now for the machine learning part -- our AI's strategy:
+
+    # First, see if the machine can win on the next move:
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, computerLetter, i)
+            if isWinner(boardCopy, computerLetter):
+                return i
+
+    # Next, see if the player can win on their next move and block them:
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, playerLetter, i)
+            if isWinner(boardCopy, playerLetter):
+                return i
+
+    # After that, take one of the corners, if they're still free:
+    move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
+    if move != None:
+        return move
+
+    # Then take the center, if it's free:
+    if isSpaceFree(board, 5):
+        return 5
+
+    # Last, choose a space on the sides:
+    return chooseRandomMoveFromList(board, [2, 4, 6, 8])
+
+def isBoardFull(board):
+    """
+    Return True if every space on the board is take, False otherwise.
+    """
+    for i in range(1, 10):
+        if isSpaceFree(board, i):
+            return False
+    return True
+
+# Time to play the game!
+print('Welcome to Tic-Tac-Toe!')
