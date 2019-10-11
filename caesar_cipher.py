@@ -33,4 +33,26 @@ def getKey():
             return key
 
 def getTranslatedMessage(mode, message, key):
-    
+    if mode[0] == 'd':
+        key = -key
+    translated = ''
+    # If a symbol isn't found, just enter the character as it is.
+    for symbol in message:
+        symbolIndex = SYMBOLS.find(symbol)
+        if symbolIndex == -1:
+            translated += symbol
+        else:
+            symbolIndex += key
+            # Encrypt or decrypt
+            if symbolIndex >= len(SYMBOLS):
+                symbolIndex -= len(SYMBOLS)
+            elif symbolIndex < 0:
+                symbolIndex += len(SYMBOLS)
+            translated += SYMBOLS[symbolIndex]
+    return translated
+
+mode = getMode()
+message = getMessage()
+key = getKey()
+print('Your translated text is: ')
+print(getTranslatedMessage(mode, message, key))
