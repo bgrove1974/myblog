@@ -62,4 +62,50 @@ def displayBoard(missedLetters, correctLetters, secretWord):
     blanks = '_' * len(secretWord)
     for i in range(len(secretWord)):
         if secretWord[i] in correctLetters:
-            
+            blanks = blanks[:i] + secretWord[i] + blanks[i+1:]
+    # Display the secret word with spaces between the letters:
+    for letter in blanks:
+        print(letter, end =' ')
+    print()
+
+def getGuess(alreadyGuessed):
+    """
+    Returns the letter the player entered.
+    Ensures the player enters a single letter and nothing else.
+    """
+    while True:
+        print('Please guess a letter.')
+        guess = input()
+        guess = guess.lower()
+        if len(guess) != 1:
+            print('Only a single letter is allowed.')
+        elif guess in alreadyGuessed:
+            print('You have already guessed that letter. Choose again.')
+        elif guess not in 'abcdefghijklmnopqrstuvwxyz':
+            print('Please enter a letter from the alphabet.')
+        else:
+            return guess
+
+def playAgain():
+    """
+    Returns True if the player wants to play again, False otherwise.
+    """
+    print('Would you like to play again? (y)es or (n)o')
+    return input().lower().startswith('y')
+
+print('|_H_A_N_G_M_A_N_|')
+missedLetters = ''
+correctLetters = ''
+secretWord = getRandomWord(words)
+gameIsDone = False
+
+# Now for the game itself:
+while True:
+    displayBoard(missedLetters, correctLetters, secretWord)
+    # Let the player enter a letter:
+    guess = getGuess(missedLetters + correctLetters)
+
+    if guess in secretWord:
+        correctLetters = correctLetters + guess
+        # Check to see if the player has won:
+        
