@@ -12,3 +12,4 @@ https://www.java67.com/2017/05/top-7-free-python-programming-books-pdf-online-do
 https://opensource.com/article/18/9/python-programming-book-list
 https://books.goalkicker.com/PythonBook/
 https://python.cs.southern.edu/pythonbook/pythonbook.pdf
+https://nostarch.com/crackingcodesresources
