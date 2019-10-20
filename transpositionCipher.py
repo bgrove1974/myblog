@@ -16,3 +16,19 @@ def main():
     pyperclip.copy(ciphertext)
 
 def encryptMessage(key, message):
+    """
+    Each string in ciphertext represents a column in the grid.
+    Continue looping through each column until currentIndex goes past the message length, then place the character at currentIndex in message at the end of the current column in the ciphertext list.
+    Then move currentIndex over, repeat the process, and convert the ciphertext list into a single string value and return it.
+    """
+    ciphertext = [''] * key
+    for column in range(key):
+        currentIndex = column
+        while currentIndex < len(message):
+            ciphertext[column] += message[currentIndex]
+            currentIndex += key
+    return ''.join(ciphertext)
+
+# Call the main function if transpositonCipher.py is run instead of being imported:
+if __name__ == '__main__':
+    main()
