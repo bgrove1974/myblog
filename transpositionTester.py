@@ -14,3 +14,10 @@ def main():
         # Convert the message string to a list and shuffle it:
         message = list(message)
         random.shuffle(message)
+        # Convert the list back into a string:
+        message = ''.join(message)
+
+        print('Test #%s: "%s..."' % (i + 1, message[:50]))
+
+        # Check all possible keys for each message:
+        
