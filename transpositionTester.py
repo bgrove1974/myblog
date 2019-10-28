@@ -20,4 +20,17 @@ def main():
         print('Test #%s: "%s..."' % (i + 1, message[:50]))
 
         # Check all possible keys for each message:
-        
+        for key in range(1, int(len(message)/2)):
+            encrypted = transpositionCipher.encryptMessage(key, message)
+            decrypted = transpositionHacker.decryptMessage(key, encrypted)
+            # If message and decrypted don't match, throw an error and quit:
+            if message != decrypted:
+                print('Mismatch with key %s and message %s.' % (key, message))
+                print('Decrypted is: ' + decrypted)
+                sys.exit()
+
+    print('Transpostion Cipher test passed')
+
+# Call the main function if necessary:
+if __name__ == '__main__':
+    main()
